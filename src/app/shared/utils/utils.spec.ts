@@ -24,7 +24,15 @@
 
 describe('utils', () => {
   // describe is our section and it is our test
-  it('should 1 be 1', () => {
-    expect(1).toEqual(1);
+
+  describe('range', () => {
+    it('should 1 be 1', () => {
+      expect(1).toEqual(1);
+    });
+  });
+  describe('pluck', () => {
+    it('should 1 be 1', () => {
+      expect(1).toEqual(1);
+    });
   });
 });
