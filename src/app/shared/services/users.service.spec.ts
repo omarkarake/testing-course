@@ -39,6 +39,7 @@ describe('UsersService', () => {
 import { TestBed } from '@angular/core/testing';
 import { UsersService } from './users.service';
 import { UserInteface } from '../types/user.interface';
+import { UtilsService } from './utils.service';
 
 describe('userService', () => {
   // property to reference service
@@ -47,7 +48,7 @@ describe('userService', () => {
   beforeEach(() => {
     // TestBed will create module for service
     TestBed.configureTestingModule({
-      providers: [UsersService],
+      providers: [UsersService, UtilsService],
     });
     // to get access to our service module
     userService = TestBed.inject(UsersService);
