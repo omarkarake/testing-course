@@ -44,23 +44,26 @@ import { UtilsService } from './utils.service';
 describe('userService', () => {
   // property to reference service
   let userService: UsersService;
-  let utilsServiceMock = {
-    pluck: jest.fn(),
-  };
+  let utilsService: UtilsService;
+  // let utilsServiceMock = {
+  //   pluck: jest.fn(),
+  // };
   // beforeEach block is excuted on each test
   beforeEach(() => {
     // TestBed will create module for service
     TestBed.configureTestingModule({
       providers: [
         UsersService,
-        {
-          provide: UtilsService,
-          useValue: utilsServiceMock,
-        },
+        UtilsService,
+        // {
+        //   provide: UtilsService,
+        //   useValue: utilsServiceMock,
+        // },
       ],
     });
     // to get access to our service module
     userService = TestBed.inject(UsersService);
+    utilsService = TestBed.inject(UtilsService);
   });
   it('creates a service', () => {
     expect(userService).toBeTruthy();
@@ -86,8 +89,15 @@ describe('userService', () => {
 
   describe('get Usernames', () => {
     it('should get usernames', () => {
-      utilsServiceMock.pluck.mockReturnValue(['foo']);
-      expect(userService.getUsername()).toEqual(['foo']);
+      jest.spyOn(utilsService, 'pluck');
+      userService.users = [{ id: '1', name: 'foo' }];
+      userService.getUsername();
+      expect(utilsService.pluck).toHaveBeenCalledWith(
+        userService.users,
+        'name'
+      );
+      // utilsServiceMock.pluck.mockReturnValue(['foo']);
+      // expect(userService.getUsername()).toEqual(['foo']);
     });
   });
 });
