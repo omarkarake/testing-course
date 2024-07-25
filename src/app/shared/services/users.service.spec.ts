@@ -38,6 +38,7 @@ describe('UsersService', () => {
 });*/
 import { TestBed } from '@angular/core/testing';
 import { UsersService } from './users.service';
+import { UserInteface } from '../types/user.interface';
 
 describe('userService', () => {
   // property to reference service
@@ -53,5 +54,23 @@ describe('userService', () => {
   });
   it('creates a service', () => {
     expect(userService).toBeTruthy();
+  });
+  describe('addUser', () => {
+    it('should add user', () => {
+      const user: UserInteface = {
+        id: '1',
+        name: 'foo',
+      };
+      userService.addUser(user);
+      expect(userService.users).toEqual([{ id: '1', name: 'foo' }]);
+    });
+  });
+  describe('removeUser', () => {
+    it('should remove user', () => {
+      userService.users = [{ id: '1', name: 'foo' }];
+      const userId: string = '1';
+      userService.removeUser(userId);
+      expect(userService.users).toEqual([]);
+    });
   });
 });
