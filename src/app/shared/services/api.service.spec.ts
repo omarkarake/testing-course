@@ -135,7 +135,7 @@ describe('ApiService', () => {
         throw new Error('error needs to be defined');
       }
       expect(actualError.status).toEqual(422);
-      expect(actualError.statusText).toEqual('Unprocessible entity ');
+      expect(actualError.statusText).toEqual('Unprocessible entity');
     });
   });
 });
