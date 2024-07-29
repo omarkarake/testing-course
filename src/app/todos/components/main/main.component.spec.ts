@@ -5,6 +5,7 @@ import { TodosService } from '../../services/todos.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TodoInterface } from '../../types/todo.interface';
 import { TodoComponent } from '../todo/todo.component';
+import { By } from '@angular/platform-browser';
 
 // Shallow testing
 @Component({
@@ -37,5 +38,19 @@ describe('mainComponent', () => {
   });
   it('creates a component', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('component visibility', () => {
+    it('should be hidden without todos', () => {
+        const main = fixture.debugElement.query(By.css('[data-testid="main"]'));
+        expect(main.classes['hidden']).toEqual(true);
+      });
+
+    it('should be visible with todos', () => {
+      todosService.todosSig.set([{ id: '1', text: 'foo', isCompleted: true }]);
+      fixture.detectChanges();
+      const main = fixture.debugElement.query(By.css('[data-testid="main"]'));
+      expect(main.classes['hidden']).not.toBeDefined();
+    });
   });
 });
