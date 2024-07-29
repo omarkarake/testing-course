@@ -6,7 +6,7 @@
 // } from '@angular/common/http/testing';
 // import { TagInterface } from '../types/tag.interface';
 
-import { TestBed } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { ApiService } from './api.service';
 import {
   HttpClientTestingModule,
@@ -92,6 +92,14 @@ describe('ApiService', () => {
       req.flush([{ id: '1', name: 'foo' }]);
       expect(tags).toEqual([{ id: '1', name: 'foo' }]);
     });
+
+    it('should return a list of tags with watiForAsync', waitForAsync(() => {
+      apiService.getTags().subscribe((response) => {
+        expect(response).toEqual([{ id: '1', name: 'foo' }]);
+      });
+      const req = httpTestingController.expectOne('http://localhost:3004/tags');
+      req.flush([{ id: '1', name: 'foo' }]);
+    }));
   });
 
   describe('createTag', () => {
